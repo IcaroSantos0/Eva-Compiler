@@ -2,7 +2,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include<string>
+#include <string>
+#include <unordered_map>
 using std::string;
 using std::getline;
 
@@ -11,14 +12,20 @@ using std::getline;
 
 using namespace std;
 
-int valorVar = 0;
-std::unordered_map<std::string, int> tabSym;
+typedef struct{
+
+	string tipo;
+	string nome;
+} variable;
 
 struct atributos
 {
 	string label;
 	string traducao;
 };
+
+int valorVar = 0;
+std::unordered_map <std::string, variable> tabSym;
 
 int yylex(void);
 void yyerror(string);
@@ -39,7 +46,7 @@ string genLabel();
 
 S 			: TK_TIPO_INT TK_MAIN '(' ')' BLOCO
 			{
-				cout << "/*Compilador Eva*/\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\nint main(void)\n{\n" << $5.traducao << "\treturn 0;\n}" << endl; 
+				cout << "/*Compilador Eva*/\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\nint main(void)\n{\n" << $5.traducao << "\treturn 0;\n}" << endl;
 			}
 			;
 
@@ -49,7 +56,7 @@ BLOCO		: '{' COMANDOS '}'
 			}
 			;
 
-COMANDOS	: COMANDO COMANDOS
+COMANDOS: COMANDO COMANDOS
 			|
 			;
 
@@ -58,13 +65,13 @@ COMANDO 	: E ';'
 
 	E 		: E '+' E
 			{
-				$$.label = genLabel(); 
+				$$.label = genLabel();
 				$$.traducao = $1.traducao + $3.traducao + $$.label + " = " + $1.label + " + " + $3.label + ";\n";
 			}
 
 			| E '-' E
 			{
-				$$.label = genLabel(); 
+				$$.label = genLabel();
 				$$.traducao = $1.traducao + $3.traducao + $$.label + " = " + $1.label + " - " + $3.label + ";\n";
 			}
 
@@ -94,10 +101,10 @@ COMANDO 	: E ';'
 
 			/*| TK_ID " = " E
 			{
-				$$.label = genLabel();
+
 				$$.traducao = $3.traducao + $$.label + TK_ID + " = " + $$.label + ";\n";
-			} 
-			*/
+			}*/
+
 			| TK_ID
 			;
 %%
@@ -124,4 +131,4 @@ string genLabel(){
 	std::string nomeVar = "temp";
 	valorVar++;
 	return nomeVar + std::to_string(valorVar);
-}				
+}
