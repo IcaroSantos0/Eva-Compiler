@@ -45,25 +45,26 @@ string genLabel();
 %%
 
 S 			: TK_TIPO_INT TK_MAIN '(' ')' BLOCO
-			{
-				cout << "/*Compilador Eva*/\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\nint main(void)\n{\n" << $5.traducao << "\treturn 0;\n}" << endl;
-			}
-			;
+				{
+					cout << "/*Compilador Eva*/\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\nint main(void)\n{\n" << $5.traducao << "\treturn 0;\n}" << endl;
+				}
+				;
 
 BLOCO		: '{' COMANDOS '}'
-			{
-				$$.traducao = $2.traducao;
-			}
-			;
+				{
+					$$.traducao = $2.traducao;
+				}
+				;
 
 COMANDOS: COMANDO COMANDOS
-			|
-			;
+				|
+				;
 
 COMANDO 	: E ';'
-			;
+					| DECLARACAO ';'
+					;
 
-	E 		: E '+' E
+	E 	: E '+' E
 			{
 				$$.label = genLabel();
 				$$.traducao = $1.traducao + $3.traducao + $$.label + " = " + $1.label + " + " + $3.label + ";\n";
@@ -99,14 +100,18 @@ COMANDO 	: E ';'
 				$$.traducao = $$.label + " = " + $1.traducao + ";\n";
 			}
 
-			/*| TK_ID " = " E
-			{
-
-				$$.traducao = $3.traducao + $$.label + TK_ID + " = " + $$.label + ";\n";
-			}*/
-
 			| TK_ID
+			{
+				$$.label = genLabel();
+				$$.traducao = $$.label + " = " + $1.traducao + ";\n";
+			}
 			;
+
+DECLARACAO : TK_ID '=' E
+						{
+
+						}
+						;
 %%
 
 #include "lex.yy.c"
