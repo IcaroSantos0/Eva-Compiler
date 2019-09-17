@@ -24,6 +24,8 @@ BOOL {"true"|"false"}
 
 "int"		{return TK_TIPO_INT;}
 
+"var"       {return TK_DEC_VAR;}
+
 "bool"		{ yylval.label = "int"; yylval.traducao = yytext; return TK_TIPO_BOOL;}
 
 [(){}[\];,=]	{ return *yytext; }

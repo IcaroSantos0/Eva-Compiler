@@ -33,7 +33,7 @@ string addVarToTabSym(string nomeDado);
 %}
 
 %token TK_NUM
-%token TK_MAIN TK_ID TK_TIPO_INT TK_TIPO_BOOL
+%token TK_MAIN TK_ID TK_TIPO_INT TK_DEC_VAR TK_TIPO_BOOL
 %token TK_FIM TK_ERROR
 
 %start S
@@ -56,14 +56,14 @@ BLOCO		: '{' COMANDOS '}'
 			}
 			;
 
-COMANDOS	: COMANDO COMANDOS	
+COMANDOS	: COMANDO COMANDOS
 			{
-				$$.traducao = $1.traducao + $2.traducao; 
+				$$.traducao = $1.traducao + $2.traducao;
 			}
-			| 
+			|
 			{
 				$$.traducao = "";
-			} 
+			}
 			;
 
 COMANDO 	: E ';'
@@ -73,12 +73,17 @@ COMANDO 	: E ';'
 			| ATRIBUICAO ';'
 			;
 
-ATRIBUICAO 	: TK_ID '=' E
+ATRIBUICAO 	: TK_DEC_VAR TK_ID '=' E
 			{
-				string nomeAuxID = addVarToTabSym($1.label);
-				$$.traducao = $3.traducao + "\t" + nomeAuxID + " = " + $3.label + ";\n";
+				string nomeAuxID = addVarToTabSym($2.label);
+				$$.traducao = $4.traducao + "\t" + nomeAuxID + " = " + $4.label + ";\n";
 			}
-
+			| TK_DEC_VAR TK_ID TK_TIPO_INT '=' E
+			{
+				string nomeAuxID = addVarToTabSym($2.label);
+				$$.traducao = $4.traducao + "\t" + nomeAuxID + " = " + $4.label + ";\n";
+			};
+ 
 E 			: E '+' E
 			{
 				$$.label = genLabel();
@@ -159,21 +164,21 @@ string addVarToTabSym(string nomeDado){
 	string nomeGerado;
 
 	if(got == tabSym.end()){
-		
+
 		variable Var;
 		nomeGerado = genLabel();
-		
+
 		Var = {
-				.tipo = "a", 
+				.tipo = "a",
 			   	.nome = nomeGerado
 			  };
 
 		tabSym[nomeDado] = Var;
 		return tabSym[nomeDado].nome;
-	} 
+	}
 
-	else { 
-		
+	else {
+
 		return tabSym[nomeDado].nome;
 	}
 
