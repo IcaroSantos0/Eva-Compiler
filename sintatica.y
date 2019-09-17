@@ -30,6 +30,7 @@ std::unordered_map <std::string, variable> tabSym;
 int yylex(void);
 void yyerror(string);
 string genLabel();
+string addVarToTabSym(string nomeDado);
 %}
 
 %token TK_NUM
@@ -56,60 +57,74 @@ BLOCO		: '{' COMANDOS '}'
 				}
 				;
 
-COMANDOS: COMANDO COMANDOS
-				|
-				;
+COMANDOS: COMANDO COMANDOS	
+		{
+			$$.traducao = $1.traducao + $2.traducao; 
+		}
+		| 
+		{
+			$$.traducao = "";
+		} 
+		;
 
 COMANDO 	: E ';'
-					| DECLARACAO ';'
-					;
+			{
+				$$ = $1;
+			}
+
+			| DECLARACAO ';'
+			{
+				$$ = $1;
+			}
+			;
 
 	E 	: E '+' E
 			{
 				$$.label = genLabel();
-				$$.traducao = $1.traducao + $3.traducao + $$.label + " = " + $1.label + " + " + $3.label + ";\n";
+				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " + " + $3.label + ";\n";
 			}
 
 			| E '-' E
 			{
 				$$.label = genLabel();
-				$$.traducao = $1.traducao + $3.traducao + $$.label + " = " + $1.label + " - " + $3.label + ";\n";
+				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " - " + $3.label + ";\n";
 			}
 
 			| E '*' E
 			{
 				$$.label = genLabel();
-				$$.traducao = $1.traducao + $3.traducao + $$.label + " = " + $1.label + " * " + $3.label + ";\n";
+				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " * " + $3.label + ";\n";
 			}
 
 			| E '/' E
 			{
 				$$.label = genLabel();
-				$$.traducao = $1.traducao + $3.traducao + $$.label + " = " + $1.label + " / " + $3.label + ";\n";
+				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " / " + $3.label + ";\n";
 			}
 
 			| '(' E ')'
 			{
 				$$.label = genLabel();
-				$$.traducao = $2.traducao + $$.label + " = " + '(' + $2.label + ')' + ";\n";
+				$$.traducao = $2.traducao + "\t" + $$.label + " = " + '(' + $2.label + ')' + ";\n";
 			}
 
 			| TK_NUM
 			{
 				$$.label = genLabel();
-				$$.traducao = $$.label + " = " + $1.traducao + ";\n";
+				$$.traducao = "\t" + $$.label + " = " + $1.traducao + ";\n";
 			}
 
 			| TK_ID
 			{
 				$$.label = genLabel();
-				$$.traducao = $$.label + " = " + $1.traducao + ";\n";
+				$$.traducao = "\t" + $$.label + " = " + $1.traducao + ";\n";
 			}
 			;
 
 DECLARACAO : TK_ID '=' E
 						{
-
+							string nomeAuxID = addVarToTabSym($1.label);
+							$$.traducao = $3.traducao + "\t" + nomeAuxID + " = " + $3.label + ";\n";
 						}
 						;
 %%
@@ -135,5 +150,27 @@ string genLabel(){
 
 	std::string nomeVar = "temp";
 	valorVar++;
-	return nomeVar + std::to_string(valorVar);
+	return nomeVar + to_string(valorVar);
+}
+
+string addVarToTabSym(string nomeDado){
+
+	unordered_map<string, variable>::const_iterator got = tabSym.find(nomeDado);
+	string nomeGerado;
+
+	if(got == tabSym.end()){
+		
+		variable Var;
+		Var = {.tipo = NULL, .nome = nomeGerado};
+		nomeGerado = genLabel();
+		tabSym[nomeDado] = Var;
+		return tabSym[nomeDado].nome;
+	} 
+
+	else { 
+		
+		return tabSym[nomeDado].nome;
+	}
+
+	return "";
 }

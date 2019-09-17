@@ -95,8 +95,9 @@ std::unordered_map <std::string, variable> tabSym;
 int yylex(void);
 void yyerror(string);
 string genLabel();
+string addVarToTabSym(string nomeDado);
 
-#line 100 "y.tab.c" /* yacc.c:339  */
+#line 101 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -163,7 +164,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 167 "y.tab.c" /* yacc.c:358  */
+#line 168 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -461,8 +462,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    47,    47,    53,    59,    60,    63,    64,    67,    73,
-      79,    85,    91,    97,   103,   110
+       0,    48,    48,    54,    60,    65,    70,    75,    81,    87,
+      93,    99,   105,   111,   117,   124
 };
 #endif
 
@@ -1248,94 +1249,127 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 48 "sintatica.y" /* yacc.c:1646  */
+#line 49 "sintatica.y" /* yacc.c:1646  */
     {
-				cout << "/*Compilador Eva*/\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\nint main(void)\n{\n" << (yyvsp[0]).traducao << "\treturn 0;\n}" << endl;
-			}
-#line 1256 "y.tab.c" /* yacc.c:1646  */
+					cout << "/*Compilador Eva*/\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\nint main(void)\n{\n" << (yyvsp[0]).traducao << "\treturn 0;\n}" << endl;
+				}
+#line 1257 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 54 "sintatica.y" /* yacc.c:1646  */
+#line 55 "sintatica.y" /* yacc.c:1646  */
     {
-				(yyval).traducao = (yyvsp[-1]).traducao;
-			}
-#line 1264 "y.tab.c" /* yacc.c:1646  */
+					(yyval).traducao = (yyvsp[-1]).traducao;
+				}
+#line 1265 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 8:
-#line 68 "sintatica.y" /* yacc.c:1646  */
+  case 4:
+#line 61 "sintatica.y" /* yacc.c:1646  */
     {
-				(yyval).label = genLabel();
-				(yyval).traducao = (yyvsp[-2]).traducao + (yyvsp[0]).traducao + (yyval).label + " = " + (yyvsp[-2]).label + " + " + (yyvsp[0]).label + ";\n";
-			}
+			(yyval).traducao = (yyvsp[-1]).traducao + (yyvsp[0]).traducao; 
+		}
 #line 1273 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 9:
-#line 74 "sintatica.y" /* yacc.c:1646  */
+  case 5:
+#line 65 "sintatica.y" /* yacc.c:1646  */
+    {
+			(yyval).traducao = "";
+		}
+#line 1281 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 6:
+#line 71 "sintatica.y" /* yacc.c:1646  */
+    {
+				(yyval) = (yyvsp[-1]);
+			}
+#line 1289 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 7:
+#line 76 "sintatica.y" /* yacc.c:1646  */
+    {
+				(yyval) = (yyvsp[-1]);
+			}
+#line 1297 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 8:
+#line 82 "sintatica.y" /* yacc.c:1646  */
     {
 				(yyval).label = genLabel();
-				(yyval).traducao = (yyvsp[-2]).traducao + (yyvsp[0]).traducao + (yyval).label + " = " + (yyvsp[-2]).label + " - " + (yyvsp[0]).label + ";\n";
+				(yyval).traducao = (yyvsp[-2]).traducao + (yyvsp[0]).traducao + "\t" + (yyval).label + " = " + (yyvsp[-2]).label + " + " + (yyvsp[0]).label + ";\n";
 			}
-#line 1282 "y.tab.c" /* yacc.c:1646  */
+#line 1306 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 9:
+#line 88 "sintatica.y" /* yacc.c:1646  */
+    {
+				(yyval).label = genLabel();
+				(yyval).traducao = (yyvsp[-2]).traducao + (yyvsp[0]).traducao + "\t" + (yyval).label + " = " + (yyvsp[-2]).label + " - " + (yyvsp[0]).label + ";\n";
+			}
+#line 1315 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 80 "sintatica.y" /* yacc.c:1646  */
+#line 94 "sintatica.y" /* yacc.c:1646  */
     {
 				(yyval).label = genLabel();
-				(yyval).traducao = (yyvsp[-2]).traducao + (yyvsp[0]).traducao + (yyval).label + " = " + (yyvsp[-2]).label + " * " + (yyvsp[0]).label + ";\n";
+				(yyval).traducao = (yyvsp[-2]).traducao + (yyvsp[0]).traducao + "\t" + (yyval).label + " = " + (yyvsp[-2]).label + " * " + (yyvsp[0]).label + ";\n";
 			}
-#line 1291 "y.tab.c" /* yacc.c:1646  */
+#line 1324 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 86 "sintatica.y" /* yacc.c:1646  */
+#line 100 "sintatica.y" /* yacc.c:1646  */
     {
 				(yyval).label = genLabel();
-				(yyval).traducao = (yyvsp[-2]).traducao + (yyvsp[0]).traducao + (yyval).label + " = " + (yyvsp[-2]).label + " / " + (yyvsp[0]).label + ";\n";
+				(yyval).traducao = (yyvsp[-2]).traducao + (yyvsp[0]).traducao + "\t" + (yyval).label + " = " + (yyvsp[-2]).label + " / " + (yyvsp[0]).label + ";\n";
 			}
-#line 1300 "y.tab.c" /* yacc.c:1646  */
+#line 1333 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 92 "sintatica.y" /* yacc.c:1646  */
+#line 106 "sintatica.y" /* yacc.c:1646  */
     {
 				(yyval).label = genLabel();
-				(yyval).traducao = (yyvsp[-1]).traducao + (yyval).label + " = " + '(' + (yyvsp[-1]).label + ')' + ";\n";
+				(yyval).traducao = (yyvsp[-1]).traducao + "\t" + (yyval).label + " = " + '(' + (yyvsp[-1]).label + ')' + ";\n";
 			}
-#line 1309 "y.tab.c" /* yacc.c:1646  */
+#line 1342 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 98 "sintatica.y" /* yacc.c:1646  */
+#line 112 "sintatica.y" /* yacc.c:1646  */
     {
 				(yyval).label = genLabel();
-				(yyval).traducao = (yyval).label + " = " + (yyvsp[0]).traducao + ";\n";
+				(yyval).traducao = "\t" + (yyval).label + " = " + (yyvsp[0]).traducao + ";\n";
 			}
-#line 1318 "y.tab.c" /* yacc.c:1646  */
+#line 1351 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 104 "sintatica.y" /* yacc.c:1646  */
+#line 118 "sintatica.y" /* yacc.c:1646  */
     {
 				(yyval).label = genLabel();
-				(yyval).traducao = (yyval).label + " = " + (yyvsp[0]).traducao + ";\n";
+				(yyval).traducao = "\t" + (yyval).label + " = " + (yyvsp[0]).traducao + ";\n";
 			}
-#line 1327 "y.tab.c" /* yacc.c:1646  */
+#line 1360 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 111 "sintatica.y" /* yacc.c:1646  */
+#line 125 "sintatica.y" /* yacc.c:1646  */
     {
-			
-			}
-#line 1335 "y.tab.c" /* yacc.c:1646  */
+							string nomeAuxID = addVarToTabSym((yyvsp[-2]).label);
+							(yyval).traducao = (yyvsp[0]).traducao + "\t" + nomeAuxID + " = " + (yyvsp[0]).label + ";\n";
+						}
+#line 1369 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1339 "y.tab.c" /* yacc.c:1646  */
+#line 1373 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1563,7 +1597,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 115 "sintatica.y" /* yacc.c:1906  */
+#line 130 "sintatica.y" /* yacc.c:1906  */
 
 
 #include "lex.yy.c"
@@ -1587,5 +1621,27 @@ string genLabel(){
 
 	std::string nomeVar = "temp";
 	valorVar++;
-	return nomeVar + std::to_string(valorVar);
+	return nomeVar + to_string(valorVar);
+}
+
+string addVarToTabSym(string nomeDado){
+
+	unordered_map<string, variable>::const_iterator got = tabSym.find(nomeDado);
+	string nomeGerado;
+
+	if(got == tabSym.end()){
+		
+		variable Var;
+		Var = {.tipo = NULL, .nome = nomeGerado};
+		nomeGerado = genLabel();
+		tabSym[nomeDado] = Var;
+		return tabSym[nomeDado].nome;
+	} 
+
+	else { 
+		
+		return tabSym[nomeDado].nome;
+	}
+
+	return "";
 }
