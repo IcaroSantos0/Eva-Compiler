@@ -1,6 +1,5 @@
 %{
 #include <iostream>
-#include <string>
 #include <sstream>
 #include <string>
 #include <unordered_map>
@@ -25,7 +24,7 @@ struct atributos
 };
 
 int valorVar = 0;
-std::unordered_map <std::string, variable> tabSym;
+unordered_map <string, variable> tabSym;
 
 int yylex(void);
 void yyerror(string);
@@ -34,7 +33,7 @@ string addVarToTabSym(string nomeDado);
 %}
 
 %token TK_NUM
-%token TK_MAIN TK_ID TK_TIPO_INT
+%token TK_MAIN TK_ID TK_TIPO_INT TK_TIPO_BOOL
 %token TK_FIM TK_ERROR
 
 %start S
@@ -46,39 +45,41 @@ string addVarToTabSym(string nomeDado);
 %%
 
 S 			: TK_TIPO_INT TK_MAIN '(' ')' BLOCO
-				{
-					cout << "/*Compilador Eva*/\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\nint main(void)\n{\n" << $5.traducao << "\treturn 0;\n}" << endl;
-				}
-				;
+			{
+				cout << "/*Compilador Eva*/\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\nint main(void)\n{\n" << $5.traducao << "\treturn 0;\n}" << endl;
+			}
+			;
 
 BLOCO		: '{' COMANDOS '}'
-				{
-					$$.traducao = $2.traducao;
-				}
-				;
+			{
+				$$.traducao = $2.traducao;
+			}
+			;
 
-COMANDOS: COMANDO COMANDOS	
-		{
-			$$.traducao = $1.traducao + $2.traducao; 
-		}
-		| 
-		{
-			$$.traducao = "";
-		} 
-		;
+COMANDOS	: COMANDO COMANDOS	
+			{
+				$$.traducao = $1.traducao + $2.traducao; 
+			}
+			| 
+			{
+				$$.traducao = "";
+			} 
+			;
 
 COMANDO 	: E ';'
 			{
 				$$ = $1;
 			}
-
-			| DECLARACAO ';'
-			{
-				$$ = $1;
-			}
+			| ATRIBUICAO ';'
 			;
 
-	E 	: E '+' E
+ATRIBUICAO 	: TK_ID '=' E
+			{
+				string nomeAuxID = addVarToTabSym($1.label);
+				$$.traducao = $3.traducao + "\t" + nomeAuxID + " = " + $3.label + ";\n";
+			}
+
+E 			: E '+' E
 			{
 				$$.label = genLabel();
 				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " + " + $3.label + ";\n";
@@ -119,14 +120,13 @@ COMANDO 	: E ';'
 				$$.label = genLabel();
 				$$.traducao = "\t" + $$.label + " = " + $1.traducao + ";\n";
 			}
-			;
 
-DECLARACAO : TK_ID '=' E
-						{
-							string nomeAuxID = addVarToTabSym($1.label);
-							$$.traducao = $3.traducao + "\t" + nomeAuxID + " = " + $3.label + ";\n";
-						}
-						;
+			/*| TK_TIPO_BOOL COMANDO
+			{
+				$$.label = genLabel();
+
+			}*/
+			;
 %%
 
 #include "lex.yy.c"
@@ -161,8 +161,13 @@ string addVarToTabSym(string nomeDado){
 	if(got == tabSym.end()){
 		
 		variable Var;
-		Var = {.tipo = NULL, .nome = nomeGerado};
 		nomeGerado = genLabel();
+		
+		Var = {
+				.tipo = "a", 
+			   	.nome = nomeGerado
+			  };
+
 		tabSym[nomeDado] = Var;
 		return tabSym[nomeDado].nome;
 	} 

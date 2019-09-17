@@ -12,6 +12,7 @@ NUM {DIGITO}+
 REAL {NUM}+("."{NUM}+)?
 CHAR \'({LETRA}|{NUM})\'
 ID {LETRA}({LETRA}|{NUM})*
+BOOL {"true"|"false"}
 
 %%
 
@@ -23,7 +24,9 @@ ID {LETRA}({LETRA}|{NUM})*
 
 "int"		{return TK_TIPO_INT;}
 
-[(){}[\];,]	{ return *yytext; }
+"bool"		{ yylval.label = "int"; yylval.traducao = yytext; return TK_TIPO_BOOL;}
+
+[(){}[\];,=]	{ return *yytext; }
 
 [+\-*/]		{ return *yytext; }
 
