@@ -48,20 +48,34 @@ extern int yydebug;
     TK_NUM = 258,
     TK_MAIN = 259,
     TK_ID = 260,
-    TK_TIPO_INT = 261,
-    TK_TIPO_BOOL = 262,
-    TK_FIM = 263,
-    TK_ERROR = 264
+    TK_DEC_VAR = 261,
+    TK_TIPO_INT = 262,
+    TK_TIPO_FLOAT = 263,
+    TK_TIPO_BOOL = 264,
+    TK_TIPO_CHAR = 265,
+    TK_CONV_FLOAT = 266,
+    TK_CONV_INT = 267,
+    TK_CHAR = 268,
+    TK_FLOAT = 269,
+    TK_FIM = 270,
+    TK_ERROR = 271
   };
 #endif
 /* Tokens.  */
 #define TK_NUM 258
 #define TK_MAIN 259
 #define TK_ID 260
-#define TK_TIPO_INT 261
-#define TK_TIPO_BOOL 262
-#define TK_FIM 263
-#define TK_ERROR 264
+#define TK_DEC_VAR 261
+#define TK_TIPO_INT 262
+#define TK_TIPO_FLOAT 263
+#define TK_TIPO_BOOL 264
+#define TK_TIPO_CHAR 265
+#define TK_CONV_FLOAT 266
+#define TK_CONV_INT 267
+#define TK_CHAR 268
+#define TK_FLOAT 269
+#define TK_FIM 270
+#define TK_ERROR 271
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

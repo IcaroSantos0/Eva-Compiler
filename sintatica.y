@@ -15,10 +15,12 @@ typedef struct{
 
 	string tipo;
 	string nome;
+	string valor;
 } variable;
 
 struct atributos
 {
+	string tipo;
 	string label;
 	string traducao;
 };
@@ -29,11 +31,14 @@ unordered_map <string, variable> tabSym;
 int yylex(void);
 void yyerror(string);
 string genLabel();
-string addVarToTabSym(string nomeDado);
+string addVarToTabSym(string nomeDado, string conteudoVar, string tipoVar);
+string implicitConversion(string tipo0, string tipo1);
 %}
 
 %token TK_NUM
-%token TK_MAIN TK_ID TK_TIPO_INT TK_TIPO_BOOL
+%token TK_MAIN TK_ID
+%token TK_DEC_VAR TK_TIPO_INT TK_TIPO_FLOAT TK_TIPO_BOOL TK_TIPO_CHAR
+%token TK_CHAR TK_FLOAT
 %token TK_FIM TK_ERROR
 
 %start S
@@ -56,14 +61,14 @@ BLOCO		: '{' COMANDOS '}'
 			}
 			;
 
-COMANDOS	: COMANDO COMANDOS	
+COMANDOS	: COMANDO COMANDOS
 			{
-				$$.traducao = $1.traducao + $2.traducao; 
+				$$.traducao = $1.traducao + $2.traducao;
 			}
-			| 
+			|
 			{
 				$$.traducao = "";
-			} 
+			}
 			;
 
 COMANDO 	: E ';'
@@ -73,33 +78,57 @@ COMANDO 	: E ';'
 			| ATRIBUICAO ';'
 			;
 
-ATRIBUICAO 	: TK_ID '=' E
+ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' TK_CHAR
 			{
-				string nomeAuxID = addVarToTabSym($1.label);
-				$$.traducao = $3.traducao + "\t" + nomeAuxID + " = " + $3.label + ";\n";
+				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, $4.label);
+				$$.traducao = "\t" + nomeAuxID + " = " + $5.traducao + ";\n";
 			}
+
+			| TK_DEC_VAR TK_ID TK_TIPO_INT '=' E
+			{
+				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, $4.label);
+				$$.traducao = $5.traducao + "\t" + nomeAuxID + " = " + $5.label + ";\n";
+			}
+
+			| TK_DEC_VAR TK_ID TK_TIPO_FLOAT '=' E
+			{
+				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, $4.label);
+				$$.traducao = $5.traducao + "\t" + nomeAuxID + " = " + $5.label + ";\n";
+			}
+			;
 
 E 			: E '+' E
 			{
 				$$.label = genLabel();
+
+				$$.tipo = implicitConversion(tabSym[$1.label].tipo, tabSym[$3.label].tipo);
+
 				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " + " + $3.label + ";\n";
 			}
 
 			| E '-' E
 			{
 				$$.label = genLabel();
+
+				$$.tipo = implicitConversion(tabSym[$1.label].tipo, tabSym[$3.label].tipo);
+
 				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " - " + $3.label + ";\n";
 			}
 
 			| E '*' E
 			{
 				$$.label = genLabel();
+
+				$$.tipo = implicitConversion(tabSym[$1.label].tipo, tabSym[$3.label].tipo);
+
 				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " * " + $3.label + ";\n";
 			}
 
 			| E '/' E
 			{
 				$$.label = genLabel();
+				$$.tipo = "float";
+
 				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " / " + $3.label + ";\n";
 			}
 
@@ -115,17 +144,23 @@ E 			: E '+' E
 				$$.traducao = "\t" + $$.label + " = " + $1.traducao + ";\n";
 			}
 
+			| TK_FLOAT
+		 	{
+			 $$.label = genLabel();
+			 $$.traducao = "\t" + $$.label + " = " + $1.traducao + ";\n";
+		 	}
+
 			| TK_ID
 			{
 				$$.label = genLabel();
 				$$.traducao = "\t" + $$.label + " = " + $1.traducao + ";\n";
 			}
 
-			/*| TK_TIPO_BOOL COMANDO
+			| TK_CHAR
 			{
 				$$.label = genLabel();
-
-			}*/
+				$$.traducao = "\t" + $$.label + " = " + $1.traducao + ";\n";
+			}
 			;
 %%
 
@@ -153,29 +188,57 @@ string genLabel(){
 	return nomeVar + to_string(valorVar);
 }
 
-string addVarToTabSym(string nomeDado){
+string addVarToTabSym(string nomeDado, string conteudoVar, string tipoVar){
 
 	unordered_map<string, variable>::const_iterator got = tabSym.find(nomeDado);
 	string nomeGerado;
 
 	if(got == tabSym.end()){
-		
+
 		variable Var;
 		nomeGerado = genLabel();
-		
+
 		Var = {
-				.tipo = "a", 
-			   	.nome = nomeGerado
-			  };
+						.tipo = tipoVar,
+			   		.nome = nomeGerado,
+						.valor = conteudoVar
+					};
 
 		tabSym[nomeDado] = Var;
 		return tabSym[nomeDado].nome;
-	} 
+	}
 
-	else { 
-		
+	else {
+
 		return tabSym[nomeDado].nome;
 	}
 
 	return "";
+}
+
+string implicitConversion(string tipo0, string tipo1)
+{
+
+	string tipoFinal;
+	if (tipo0 == "int" && tipo1 == "float")
+    {
+      tipoFinal = "float";
+    }
+
+    else if(tabSym[$3.label].tipo == "int" && tabSym[$1.label].tipo == "float")
+    {
+    	tipoFinal = "float";
+    }
+
+    else if(tabSym[$1.label].tipo == "float" && tabSym[$3.label].tipo == "float")
+    {
+    	tipoFinal = "float";
+    }
+
+    else
+    {
+    	tipoFinal = "int";
+    }
+
+    return tipoFinal;
 }
