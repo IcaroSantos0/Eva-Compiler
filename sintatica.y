@@ -104,6 +104,7 @@ COMANDO 	: E ';'
 ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' TK_CHAR
 			{
 				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "char");
+				erroTipo("char", $5.tipo);
 				$$.traducao = "\t" + nomeAuxID + " = " + $5.traducao + ";\n";
 				addVarToTempVector("\tchar " + nomeAuxID + ";\n");
 			}
@@ -111,6 +112,7 @@ ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' TK_CHAR
 			| TK_DEC_VAR TK_ID TK_TIPO_INT '=' E
 			{
 				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "int");
+				erroTipo("int", $5.tipo);
 				$$.traducao = $5.traducao + "\t" + nomeAuxID + " = " + $5.label + ";\n";
 				addVarToTempVector("\tint " + nomeAuxID +  ";\n");
 			}
@@ -118,6 +120,7 @@ ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' TK_CHAR
 			| TK_DEC_VAR TK_ID TK_TIPO_FLOAT '=' E
 			{
 				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "float");
+				erroTipo("float", $5.tipo);
 				$$.traducao = $5.traducao + "\t" + nomeAuxID + " = " + $5.label + ";\n";
 				addVarToTempVector("\tfloat " + nomeAuxID +  ";\n");
 			}
@@ -125,15 +128,17 @@ ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' TK_CHAR
 			| TK_DEC_VAR TK_ID TK_TIPO_BOOL '=' E
 			{
 				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "bool");
+				erroTipo("bool", $5.tipo);
 				$$.traducao = $5.traducao + "\t" + nomeAuxID + " = " + $5.label + ";\n";
 				addVarToTempVector("\tbool " + nomeAuxID + ";\n");
 			}
 
 			| TK_ID '=' E
 			{
+				erroTipo(tabSym[$1.label].tipo, $3.tipo);
 				string nomeAuxID = addVarToTabSym($1.label, $3.traducao, $3.tipo);
-//				erroTipo(tabSym[nomeAuxID].tipo, $3.tipo); //atribuicoes devem ter deteccao de erro, entrar discord
 				$$.tipo = $3.tipo;
+				cout << "##" << $$.tipo << endl;
 				$$.traducao = $3.traducao + "\t" + nomeAuxID + " = " + $3.label + ";\n";
 			}
 
@@ -163,7 +168,7 @@ DECLARACAO	: TK_DEC_VAR TK_ID TK_TIPO_CHAR
 			{
 				string nomeAuxID = addVarToTabSym($2.label, "0", "int");
 				$$.traducao ="\t" + nomeAuxID + ";\n";
-				cout << "$3.label = " << $3.label << endl;
+				cout << $3.label << " = " << $3.traducao << endl;
 				addVarToTempVector("\tint " + nomeAuxID + ";\n");
 			}
 
@@ -217,6 +222,8 @@ E 			: E '+' E
 			| E '<' E
 			{
 				$$.label = genLabel();
+				$1.tipo = implicitConversion($1.tipo, $3.tipo);
+				$3.tipo = implicitConversion($1.tipo, $3.tipo);
 				$$.tipo = "bool";
 				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " < " + $3.label + ";\n";
 				addVarToTempVector("\t" + $$.tipo + " " + $$.label + ";\n");
@@ -225,6 +232,8 @@ E 			: E '+' E
 			| E '>' E
 			{
 				$$.label = genLabel();
+				$1.tipo = implicitConversion($1.tipo, $3.tipo);
+				$3.tipo = implicitConversion($1.tipo, $3.tipo);
 				$$.tipo = "bool";
 				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " > " + $3.label + ";\n";
 				addVarToTempVector("\t" + $$.tipo + " " + $$.label + ";\n");
@@ -233,6 +242,8 @@ E 			: E '+' E
 			| E TK_LE E
 			{
 				$$.label = genLabel();
+				$1.tipo = implicitConversion($1.tipo, $3.tipo);
+				$3.tipo = implicitConversion($1.tipo, $3.tipo);
 				$$.tipo = "bool";
 				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " <= " + $3.label + ";\n";
 				addVarToTempVector("\t" + $$.tipo + " " + $$.label + ";\n");
@@ -241,6 +252,8 @@ E 			: E '+' E
 			| E TK_HE E
 			{
 				$$.label = genLabel();
+				$1.tipo = implicitConversion($1.tipo, $3.tipo);
+				$3.tipo = implicitConversion($1.tipo, $3.tipo);
 				$$.tipo = "bool";
 				$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " >= " + $3.label + ";\n";
 				addVarToTempVector("\t" + $$.tipo + " " + $$.label + ";\n");
@@ -262,14 +275,15 @@ E 			: E '+' E
 				addVarToTempVector("\t" + $$.tipo + " " + $$.label + ";\n");
 			}
 			
-			| '!' E
+/*			| '!' E
 			{
 				$$.label = genLabel();
-				$$.tipo = isBoolean("bool", $2.tipo);
+				cout << "**" << $2.tipo << endl;
+				$$.tipo = isBoolean("bool", tabSym[$2.label].tipo);
 				cout << "++" << $2.tipo << endl;
 				$$.traducao = $2.traducao + "\t" + $$.label + " = !" + $2.label + ";\n";
 				addVarToTempVector("\t" + $$.tipo + " " + $$.label + ";\n");
-			}
+			}*/
 			
 
 			| '(' E ')'
@@ -399,7 +413,7 @@ string implicitConversion(string tipo0, string tipo1)
 
     else
     {
-    	yyerror("nao e possivel realizar operacoes com tipo char!\n");
+    	yyerror("nao e possivel realizar operacoes com tipos nao numericos!\n");
     }
 
     return "";

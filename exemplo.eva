@@ -1,5 +1,9 @@
 int main()
 {
 	var b int;
-	b = TRUE;
+	b = 3;
+	var c int;
+	c = 5;
+	var d int;
+	d = b + c;
 }
