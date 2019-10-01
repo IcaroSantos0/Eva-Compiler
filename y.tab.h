@@ -45,25 +45,43 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    TK_NUM = 258,
-    TK_MAIN = 259,
-    TK_ID = 260,
+    TK_MAIN = 258,
+    TK_ID = 259,
+    TK_DEC_VAR = 260,
     TK_TIPO_INT = 261,
-    TK_DEC_VAR = 262,
+    TK_TIPO_FLOAT = 262,
     TK_TIPO_BOOL = 263,
-    TK_FIM = 264,
-    TK_ERROR = 265
+    TK_TIPO_CHAR = 264,
+    TK_CONV_FLOAT = 265,
+    TK_CONV_INT = 266,
+    TK_LE = 267,
+    TK_HE = 268,
+    TK_CHAR = 269,
+    TK_FLOAT = 270,
+    TK_BOOL = 271,
+    TK_NUM = 272,
+    TK_FIM = 273,
+    TK_ERROR = 274
   };
 #endif
 /* Tokens.  */
-#define TK_NUM 258
-#define TK_MAIN 259
-#define TK_ID 260
+#define TK_MAIN 258
+#define TK_ID 259
+#define TK_DEC_VAR 260
 #define TK_TIPO_INT 261
-#define TK_DEC_VAR 262
+#define TK_TIPO_FLOAT 262
 #define TK_TIPO_BOOL 263
-#define TK_FIM 264
-#define TK_ERROR 265
+#define TK_TIPO_CHAR 264
+#define TK_CONV_FLOAT 265
+#define TK_CONV_INT 266
+#define TK_LE 267
+#define TK_HE 268
+#define TK_CHAR 269
+#define TK_FLOAT 270
+#define TK_BOOL 271
+#define TK_NUM 272
+#define TK_FIM 273
+#define TK_ERROR 274
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

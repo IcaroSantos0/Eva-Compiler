@@ -1,5 +1,5 @@
 int main()
 {
-	var a int = 1;
-	var b = 2;
+	var b int;
+	b = TRUE;
 }
