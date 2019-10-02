@@ -3,13 +3,13 @@
 *Atribuição
 *Operações aritméticas
 *Tabela de símbolos
-
--A fazer
-
 *Tipagem
+*Declaração de tipo no código intermediário
 *Conversão de tipos
 	*Implícita
 	*Explícita
-*Operações lógicas
 *Operações relacionais
-*Declaração de tipo no código intermediário
+
+-A fazer
+
+*Operações lógicas

@@ -1,8 +1,9 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.3.2.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,6 +31,9 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
+
 #ifndef YY_YY_Y_TAB_H_INCLUDED
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
@@ -45,37 +49,43 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    TK_NUM = 258,
-    TK_MAIN = 259,
-    TK_ID = 260,
-    TK_DEC_VAR = 261,
-    TK_TIPO_INT = 262,
-    TK_TIPO_FLOAT = 263,
-    TK_TIPO_BOOL = 264,
-    TK_TIPO_CHAR = 265,
-    TK_CONV_FLOAT = 266,
-    TK_CONV_INT = 267,
-    TK_CHAR = 268,
-    TK_FLOAT = 269,
-    TK_FIM = 270,
-    TK_ERROR = 271
+    TK_MAIN = 258,
+    TK_ID = 259,
+    TK_DEC_VAR = 260,
+    TK_TIPO_INT = 261,
+    TK_TIPO_FLOAT = 262,
+    TK_TIPO_BOOL = 263,
+    TK_TIPO_CHAR = 264,
+    TK_CONV_FLOAT = 265,
+    TK_CONV_INT = 266,
+    TK_LE = 267,
+    TK_HE = 268,
+    TK_CHAR = 269,
+    TK_FLOAT = 270,
+    TK_BOOL = 271,
+    TK_NUM = 272,
+    TK_FIM = 273,
+    TK_ERROR = 274
   };
 #endif
 /* Tokens.  */
-#define TK_NUM 258
-#define TK_MAIN 259
-#define TK_ID 260
-#define TK_DEC_VAR 261
-#define TK_TIPO_INT 262
-#define TK_TIPO_FLOAT 263
-#define TK_TIPO_BOOL 264
-#define TK_TIPO_CHAR 265
-#define TK_CONV_FLOAT 266
-#define TK_CONV_INT 267
-#define TK_CHAR 268
-#define TK_FLOAT 269
-#define TK_FIM 270
-#define TK_ERROR 271
+#define TK_MAIN 258
+#define TK_ID 259
+#define TK_DEC_VAR 260
+#define TK_TIPO_INT 261
+#define TK_TIPO_FLOAT 262
+#define TK_TIPO_BOOL 263
+#define TK_TIPO_CHAR 264
+#define TK_CONV_FLOAT 265
+#define TK_CONV_INT 266
+#define TK_LE 267
+#define TK_HE 268
+#define TK_CHAR 269
+#define TK_FLOAT 270
+#define TK_BOOL 271
+#define TK_NUM 272
+#define TK_FIM 273
+#define TK_ERROR 274
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

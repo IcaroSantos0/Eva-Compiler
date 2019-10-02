@@ -12,11 +12,13 @@ NUM {DIGITO}+
 REAL {NUM}+("."{NUM}+)?
 CHAR \'({LETRA}|{NUM})\'
 ID {LETRA}({LETRA}|{NUM})*
-BOOL {"TRUE"|"FALSE"}
+BOOL "TRUE"|"FALSE"
 
 %%
 
 "\n"		{}
+
+"//"        {}
 
 {DELIM} 	{}
 
@@ -34,16 +36,20 @@ BOOL {"TRUE"|"FALSE"}
 
 "(i)"		{return TK_CONV_INT;}
 
-"bool"		{ yylval.label = "bool"; yylval.traducao = yytext; return TK_TIPO_BOOL;}
+"bool"		{yylval.label = "bool"; yylval.traducao = yytext; return TK_TIPO_BOOL;}
 
-[(){}[\];,=]	{ return *yytext; }
+[(){}[\];,=<>!|&]	{ return *yytext; }
+
+"<="        {return TK_LE;}
+
+">="        {return TK_HE;}
 
 [+\-*/]		{ return *yytext; }
 
-
+{NUM}		{ yylval.traducao = yytext; return TK_NUM;  }
+{BOOL}		{ yylval.traducao = yytext; return TK_BOOL; }
 {CHAR}      { yylval.traducao = yytext; return TK_CHAR; }
 {REAL}      { yylval.traducao = yytext; return TK_FLOAT;}
-{NUM}		{ yylval.traducao = yytext; return TK_NUM;  }
 {ID}		{ yylval.label = yytext; return TK_ID;      }
 
 .			{ *yytext; }

@@ -1,4 +1,10 @@
 int main()
 {
-	var c char;
+	var b char;
+	b = 'c';
+	var c int;
+	c = 5;
+	var d float;
+	d = 2.5;
+	c = d + d;
 }
