@@ -1,10 +1,4 @@
 int main()
 {
-	var b char;
-	b = 'c';
-	var c int;
-	c = 5;
-	var d float;
-	d = 2.5;
-	c = d + d;
+	var c bool = (TRUE | 1) < 2;
 }
