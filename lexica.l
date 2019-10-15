@@ -44,6 +44,10 @@ BOOL "TRUE"|"FALSE"
 
 ">="        {return TK_HE;}
 
+"=="        {return TK_EQ;}
+
+"!="        {return TK_DIFF;}
+
 [+\-*/]		{ return *yytext; }
 
 {NUM}		{ yylval.traducao = yytext; return TK_NUM;  }

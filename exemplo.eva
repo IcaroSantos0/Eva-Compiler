@@ -1,4 +1,6 @@
 int main()
 {
-	var c bool = (TRUE | 1) < 2;
+	var f float;
+	
+	f = (f) 1 + 1.0;
 }
