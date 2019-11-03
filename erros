@@ -1,49 +1,11 @@
 int main()
 {
-	var f bool;
-	var g bool;
-	g = TRUE;
 
-	f = G;
-}
+	var d bool = FALSE;
 
-int main()
-{
-	var f int;
-	var g int;
-	g = 1;
+		if 5<2 then
+			var a int = 5 + 3;
+			var d bool = TRUE;
+		end;
 
-	f = g;
-}
-
-int main()
-{
-	var f bool;
-	var g bool;
-	
-	f = 1 < 2 + 2.0;
-}
-
-int main()
-{
-	var f bool;
-	var g bool;
-	
-	f = 1 < 2 & 1 < 2;
-}
-
-int main()
-{
-	var f bool;
-	var g bool;
-	
-	f = 1 < 2 | 1 < 2;
-}
-
-int main()
-{
-	var f bool;
-	var g bool;
-	
-	f = !(1 < 2 | 1 < 2) | TRUE;
 }

@@ -16,9 +16,7 @@ BOOL "TRUE"|"FALSE"
 
 %%
 
-"\n"		{}
-
-"//"        {}
+"//".*      {}
 
 {DELIM} 	{}
 
@@ -31,6 +29,12 @@ BOOL "TRUE"|"FALSE"
 "float"     {return TK_TIPO_FLOAT;}
 
 "var"       {return TK_DEC_VAR;}
+
+"if"        {return TK_IF;}
+
+"then"      {return TK_THEN;}
+
+"end"       {return TK_END_LOOP;}
 
 "(f)"		{return TK_CONV_FLOAT;}
 

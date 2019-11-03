@@ -1,6 +1,11 @@
 int main()
 {
-	var f float;
-	
-	f = (f) 1 + 1.0;
+
+	var d bool = FALSE;
+
+		if 5<2 then
+			var a int = 5 + 3;
+			var d bool = TRUE;
+		end;
+
 }
