@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <vector>
 #include <stack>
+#include <list>
 using std::string;
 using std::getline;
 
@@ -13,19 +14,14 @@ using std::getline;
 
 using namespace std;
 
-typedef struct VetorChar //struct para string
-{
-	char caractere;
-	vetorChar *next;
-} vetorChar;
-
 typedef struct{
 
 	string tipo;
 	string nome;
 	string valor;
-	vetorChar *texto; //ponteiro para string
+	
 } variable;
+
 
 typedef struct Atributos
 {
@@ -150,13 +146,13 @@ ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' TK_CHAR
 				addVarToTempVector("\tchar " + nomeAuxID + ";\n");
 			}
 
-			| TK_DEC_VAR TK_ID TK_TIPO_STRING '=' E
+/*			| TK_DEC_VAR TK_ID TK_TIPO_STRING '=' TK_STRING
 			{
 				erroTipo("string", $5.tipo);
 				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "string");
 				$$.traducao = "\t" + nomeAuxID + " = " + $5.traducao + ";\n";
 				addVarToTempVector("\tstring " + nomeAuxID + ";\n");
-			}
+			}*/
 
 			| TK_DEC_VAR TK_ID TK_TIPO_INT '=' E
 			{
@@ -648,17 +644,17 @@ string addVarToTabSym(string nomeDado, string conteudoVar, string tipoVar){
 
 		else //adiciona string na tabela de símbolos
 		{
+			for (int i = 0; i < conteudoVar.size(); i++) //adiciona char no vector
+			{
+			}
+
 			Var = {
 				.tipo = tipoVar,
 				.nome = nomeGerado,
 
-				for (int i = 0; i < conteudoVar.size(); i++) //adiciona char na lista encadeada (falta fazer operação de add na lista)
-				{
-					/* code */
-				}
 			}
 		}
-		
+
 
 		tabSym[nomeDado] = Var;
 		return tabSym[nomeDado].nome;

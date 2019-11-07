@@ -1,11 +1,4 @@
 int main()
 {
-	if 5<4 then
-		var a int = 5;
-	end;
-	else then
-		if 4 > 3 then
-			var c int = 4;
-		end;
-	end;
+	var c char = 'a';
 }

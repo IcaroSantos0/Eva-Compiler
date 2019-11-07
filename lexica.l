@@ -49,7 +49,7 @@ STRING \'({LETRA}|{NUM})*\'
 
 "bool"		{yylval.label = "bool"; yylval.traducao = yytext; return TK_TIPO_BOOL;}
 
-"string"	{return TK_TIPO STRING;}
+"string"	{return TK_TIPO_STRING;}
 
 [(){}[\];,=<>!|&]	{ return *yytext; }
 
