@@ -13,7 +13,7 @@ using std::getline;
 
 using namespace std;
 
-typedef struct VetorChar
+typedef struct VetorChar //struct para string
 {
 	char caractere;
 	vetorChar *next;
@@ -24,7 +24,7 @@ typedef struct{
 	string tipo;
 	string nome;
 	string valor;
-	vetorChar *texto;
+	vetorChar *texto; //ponteiro para string
 } variable;
 
 typedef struct Atributos
@@ -61,7 +61,7 @@ void printVector();
 %}
 
 %token TK_MAIN TK_ID TK_IF TK_ELSE TK_THEN TK_END_LOOP TK_WHILE TK_DO
-%token TK_DEC_VAR TK_TIPO_INT TK_TIPO_FLOAT TK_TIPO_BOOL TK_TIPO_CHAR
+%token TK_DEC_VAR TK_TIPO_INT TK_TIPO_FLOAT TK_TIPO_BOOL TK_TIPO_CHAR TK_TIPO_STRING
 %token TK_CONV_FLOAT TK_CONV_INT TK_LE TK_HE TK_EQ TK_DIFF
 %token TK_CHAR TK_FLOAT TK_BOOL TK_NUM
 %token TK_STRING TK_FIM TK_ERROR
@@ -150,12 +150,12 @@ ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' TK_CHAR
 				addVarToTempVector("\tchar " + nomeAuxID + ";\n");
 			}
 
-			TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' TK_CHAR
+			| TK_DEC_VAR TK_ID TK_TIPO_STRING '=' E
 			{
-				erroTipo("char", $5.tipo);
-				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "char");
+				erroTipo("string", $5.tipo);
+				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "string");
 				$$.traducao = "\t" + nomeAuxID + " = " + $5.traducao + ";\n";
-				addVarToTempVector("\tchar " + nomeAuxID + ";\n");
+				addVarToTempVector("\tstring " + nomeAuxID + ";\n");
 			}
 
 			| TK_DEC_VAR TK_ID TK_TIPO_INT '=' E
@@ -186,7 +186,7 @@ ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' TK_CHAR
 
 				if(($3.tipo != tabSym[$1.label].tipo)){
 
-					if(($3.tipo == "char" && tabSym[$1.label].tipo != "char") || ($3.tipo == "bool" && tabSym[$1.label].tipo != "bool")){
+					if(($3.tipo == "char" && tabSym[$1.label].tipo != "char") || ($3.tipo == "bool" && tabSym[$1.label].tipo != "bool") || ($3.tipo == "string" && tabSym[$1.label].tipo != "string")){
 						string msgError = "Atribuição de " + $3.tipo + " em " + tabSym[$1.label].tipo  + " é inválida!\n";
 						yyerror(msgError);
 					}
@@ -243,6 +243,12 @@ DECLARACAO	: TK_DEC_VAR TK_ID TK_TIPO_CHAR
 			{
 				string nomeAuxID = addVarToTabSym($2.label, "none", "char");
 				addVarToTempVector("\tchar " + nomeAuxID +  ";\n");
+			}
+
+			| TK_DEC_VAR TK_ID TK_TIPO_STRING
+			{
+				string nomeAuxID = addVarToTabSym($2.label, "none", "string");
+				addVarToTempVector("\tstring " + nomeAuxID +  ";\n");
 			}
 
 			| TK_DEC_VAR TK_ID TK_TIPO_INT
@@ -582,6 +588,14 @@ E 			: E '+' E
 				$$.traducao = "\t" + $$.label + " = " + $1.traducao + ";\n";
 			}
 
+			| TK_STRING
+			{
+				$$.label = "nomeTemporarioChar" + to_string(valorTemp++);
+				$$.tipo = "string";
+				addVarToTempVector("\tstring "  + $$.label + ";\n");
+				$$.traducao = "\t" + $$.label + " = " + $1.traducao + ";\n";
+			}
+
 			| TK_ID
 			{
 				$$.label = tabSym[$1.label].nome;
@@ -623,11 +637,28 @@ string addVarToTabSym(string nomeDado, string conteudoVar, string tipoVar){
 		variable Var;
 		nomeGerado = genLabel();
 
-		Var = {
+		if (tipoVar != "string")
+		{
+			Var = {
 					.tipo = tipoVar,
 			   		.nome = nomeGerado,
 					.valor = conteudoVar
 			  };
+		}
+
+		else //adiciona string na tabela de símbolos
+		{
+			Var = {
+				.tipo = tipoVar,
+				.nome = nomeGerado,
+
+				for (int i = 0; i < conteudoVar.size(); i++) //adiciona char na lista encadeada (falta fazer operação de add na lista)
+				{
+					/* code */
+				}
+			}
+		}
+		
 
 		tabSym[nomeDado] = Var;
 		return tabSym[nomeDado].nome;

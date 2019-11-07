@@ -49,7 +49,7 @@ STRING \'({LETRA}|{NUM})*\'
 
 "bool"		{yylval.label = "bool"; yylval.traducao = yytext; return TK_TIPO_BOOL;}
 
-"string"	{return TK_STRING;}
+"string"	{return TK_TIPO STRING;}
 
 [(){}[\];,=<>!|&]	{ return *yytext; }
 
@@ -66,8 +66,8 @@ STRING \'({LETRA}|{NUM})*\'
 {NUM}		{ yylval.traducao = yytext; return TK_NUM;  }
 {BOOL}		{ yylval.traducao = yytext; return TK_BOOL; }
 {CHAR}      { yylval.traducao = yytext; return TK_CHAR; }
-{STRING}	{ yylval.traducao = yytext; return TK_STRING;}
 {REAL}      { yylval.traducao = yytext; return TK_FLOAT;}
+{STRING}	{ yylval.traducao = yytext; return TK_STRING;}
 {ID}		{ yylval.label = yytext; return TK_ID;      }
 
 .			{ *yytext; }
