@@ -1,9 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.3.2.  */
+/* A Bison parser, made by GNU Bison 3.0.4.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
-   Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -31,9 +30,6 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Undocumented macros, especially those whose name start with YY_,
-   are private implementation details.  Do not rely on them.  */
-
 #ifndef YY_YY_Y_TAB_H_INCLUDED
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
@@ -52,50 +48,56 @@ extern int yydebug;
     TK_MAIN = 258,
     TK_ID = 259,
     TK_IF = 260,
-    TK_THEN = 261,
-    TK_END_LOOP = 262,
-    TK_DEC_VAR = 263,
-    TK_TIPO_INT = 264,
-    TK_TIPO_FLOAT = 265,
-    TK_TIPO_BOOL = 266,
-    TK_TIPO_CHAR = 267,
-    TK_CONV_FLOAT = 268,
-    TK_CONV_INT = 269,
-    TK_LE = 270,
-    TK_HE = 271,
-    TK_EQ = 272,
-    TK_DIFF = 273,
-    TK_CHAR = 274,
-    TK_FLOAT = 275,
-    TK_BOOL = 276,
-    TK_NUM = 277,
-    TK_FIM = 278,
-    TK_ERROR = 279
+    TK_ELSE = 261,
+    TK_THEN = 262,
+    TK_END_LOOP = 263,
+    TK_WHILE = 264,
+    TK_DO = 265,
+    TK_DEC_VAR = 266,
+    TK_TIPO_INT = 267,
+    TK_TIPO_FLOAT = 268,
+    TK_TIPO_BOOL = 269,
+    TK_TIPO_CHAR = 270,
+    TK_CONV_FLOAT = 271,
+    TK_CONV_INT = 272,
+    TK_LE = 273,
+    TK_HE = 274,
+    TK_EQ = 275,
+    TK_DIFF = 276,
+    TK_CHAR = 277,
+    TK_FLOAT = 278,
+    TK_BOOL = 279,
+    TK_NUM = 280,
+    TK_FIM = 281,
+    TK_ERROR = 282
   };
 #endif
 /* Tokens.  */
 #define TK_MAIN 258
 #define TK_ID 259
 #define TK_IF 260
-#define TK_THEN 261
-#define TK_END_LOOP 262
-#define TK_DEC_VAR 263
-#define TK_TIPO_INT 264
-#define TK_TIPO_FLOAT 265
-#define TK_TIPO_BOOL 266
-#define TK_TIPO_CHAR 267
-#define TK_CONV_FLOAT 268
-#define TK_CONV_INT 269
-#define TK_LE 270
-#define TK_HE 271
-#define TK_EQ 272
-#define TK_DIFF 273
-#define TK_CHAR 274
-#define TK_FLOAT 275
-#define TK_BOOL 276
-#define TK_NUM 277
-#define TK_FIM 278
-#define TK_ERROR 279
+#define TK_ELSE 261
+#define TK_THEN 262
+#define TK_END_LOOP 263
+#define TK_WHILE 264
+#define TK_DO 265
+#define TK_DEC_VAR 266
+#define TK_TIPO_INT 267
+#define TK_TIPO_FLOAT 268
+#define TK_TIPO_BOOL 269
+#define TK_TIPO_CHAR 270
+#define TK_CONV_FLOAT 271
+#define TK_CONV_INT 272
+#define TK_LE 273
+#define TK_HE 274
+#define TK_EQ 275
+#define TK_DIFF 276
+#define TK_CHAR 277
+#define TK_FLOAT 278
+#define TK_BOOL 279
+#define TK_NUM 280
+#define TK_FIM 281
+#define TK_ERROR 282
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

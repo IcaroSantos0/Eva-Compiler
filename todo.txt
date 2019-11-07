@@ -1,15 +1,16 @@
 -Feitos
 
-*Atribuição
-*Operações aritméticas
-*Tabela de símbolos
-*Tipagem
-*Declaração de tipo no código intermediário
-*Conversão de tipos
-	*Implícita
-	*Explícita
-*Operações relacionais
+	*if
+	*while
+	*do while
 
 -A fazer
 
-*Operações lógicas
+	*string
+	*contexto
+	*escopo global
+	*cin
+	*cout
+	*switch
+	*break
+	*continue 
