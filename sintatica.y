@@ -19,7 +19,7 @@ typedef struct{
 	string tipo;
 	string nome;
 	string valor;
-	
+
 } variable;
 
 
@@ -138,15 +138,15 @@ COMANDO 	: E ';'
 						}
 						;
 
-ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' TK_CHAR
+ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' E
 			{
 				erroTipo("char", $5.tipo);
 				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "char");
-				$$.traducao = "\t" + nomeAuxID + " = " + $5.traducao + ";\n";
+				$$.traducao = $5.traducao + "\t" + nomeAuxID + " = " + $5.label + ";\n";
 				addVarToTempVector("\tchar " + nomeAuxID + ";\n");
 			}
 
-/*			| TK_DEC_VAR TK_ID TK_TIPO_STRING '=' TK_STRING
+/*			| TK_DEC_VAR TK_ID TK_TIPO_STRING '=' E
 			{
 				erroTipo("string", $5.tipo);
 				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "string");
@@ -642,10 +642,11 @@ string addVarToTabSym(string nomeDado, string conteudoVar, string tipoVar){
 			  };
 		}
 
-		else //adiciona string na tabela de símbolos
+/*		else //adiciona string na tabela de símbolos
 		{
 			for (int i = 0; i < conteudoVar.size(); i++) //adiciona char no vector
 			{
+
 			}
 
 			Var = {
@@ -653,7 +654,7 @@ string addVarToTabSym(string nomeDado, string conteudoVar, string tipoVar){
 				.nome = nomeGerado,
 
 			}
-		}
+		}*/
 
 
 		tabSym[nomeDado] = Var;
