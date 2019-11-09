@@ -1,11 +1,56 @@
 int main()
 {
-
-	var d bool = FALSE;
-
-		if 5<2 then
-			var a int = 5 + 3;
-			var d bool = TRUE;
-		end;
+	var c bool = '6texto6';
 
 }
+
+int main()
+{
+	var c bool = 'c';
+
+}
+
+int main()
+{
+	var c bool = 36;
+
+}
+
+int main()
+{
+	var c int = TRUE;
+
+}
+
+int main()
+{
+	var c int = 'dale';
+
+}
+
+int main()
+{
+	var c int = 'c';
+}
+
+--------------erros com tipo int valem pra float------------------------
+
+int main()
+{
+	var c string = '36';
+
+}
+
+int main()
+{
+	var c string = '3.6';
+
+}
+
+int main()
+{
+	var c string = 'a';
+
+}
+
+
