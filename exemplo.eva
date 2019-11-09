@@ -1,4 +1,4 @@
 int main()
 {
-	var c char = 'a';
+	var c string = 'arte';
 }
