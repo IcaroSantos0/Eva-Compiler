@@ -1,4 +1,7 @@
 int main()
 {
-	var c string = 'arte';
+	var c string = 'VERDE';
+	var b string = 'tchola';
+	var a string = b + c;
+
 }

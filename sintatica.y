@@ -54,6 +54,7 @@ string isBoolean(string tipo0, string tipo1);
 int erroTipo(string tipo0, string tipo1);
 void addVarToTempVector(string nomeVar);
 void printVector();
+//string concatenacao();
 %}
 
 %token TK_MAIN TK_ID TK_IF TK_ELSE TK_THEN TK_END_LOOP TK_WHILE TK_DO
@@ -332,15 +333,25 @@ DOWHILE		: TK_DO {valorLoops++; stackLoops.push(valorLoops);} BLOCO TK_WHILE '('
 E 			: E '+' E
 			{
 				$$.label = genLabel();
-				structAux aux = implicitConversion($1.tipo, $3.tipo, $1.label, $3.label);
-				if(aux.varConvertida == $1.label){ //se primeira variável for int, muda pra float e entra nesse if
-					$$.traducao = $1.traducao + $3.traducao + aux.implicita + "\t" + $$.label + " = " + aux.nomeVar + " + " + $3.label + ";\n";
-				}
-				else if(aux.varConvertida == $3.label){ //se segunda variável for int, muda pra float e entra nesse else
-					$$.traducao = $1.traducao + $3.traducao + aux.implicita + "\t" + $$.label + " = " + $1.label + " + " + aux.nomeVar + ";\n";
-				}
-				else{ //se as duas variáveis são do mesmo tipo
+				
+				if($$.tipo != "string" && $1.tipo != "string" && $3.tipo != "string")
+				{
+					cout << $$.tipo << endl;
+					structAux aux = implicitConversion($1.tipo, $3.tipo, $1.label, $3.label);
+					if(aux.varConvertida == $1.label){
+						$$.traducao = $1.traducao + $3.traducao + aux.implicita + "\t" + $$.label + " = " + aux.nomeVar + " + " + $3.label + ";\n";
+					}
+					else if(aux.varConvertida == $3.label){
+						$$.traducao = $1.traducao + $3.traducao + aux.implicita + "\t" + $$.label + " = " + $1.label + " + " + aux.nomeVar + ";\n";
+					}
+					else{ //se as duas variáveis são do mesmo tipo
+						$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " + " + $3.label + ";\n";
+				}				}
+
+				else
+				{
 					$$.traducao = $1.traducao + $3.traducao + "\t" + $$.label + " = " + $1.label + " + " + $3.label + ";\n";
+					cout << "aqui" << endl;
 				}
 				addVarToTempVector("\t" + $$.tipo + " " + $$.label  + ";\n");
 			}
@@ -586,7 +597,7 @@ E 			: E '+' E
 
 			| TK_STRING
 			{
-				$$.label = "nomeTemporarioChar" + to_string(valorTemp++);
+				$$.label = "nomeTemporarioString" + to_string(valorTemp++);
 				$$.tipo = "string";
 				addVarToTempVector("\tstring "  + $$.label + ";\n");
 				$$.traducao = "\t" + $$.label + " = " + $1.traducao + ";\n";
@@ -795,3 +806,12 @@ int erroTipo(string tipo0, string tipo1)
 	}
 			return 0;
 }
+
+/*string concatenacao()
+{
+	
+}*/
+
+
+
+
