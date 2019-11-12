@@ -62,7 +62,7 @@ void checkForVariable(string nome);
 //string concatenacao();
 %}
 
-%token TK_MAIN TK_ID TK_IF TK_ELSE TK_THEN TK_END_LOOP TK_WHILE TK_DO TK_FOR TK_ENTRADA TK_ENTRADA
+%token TK_MAIN TK_ID TK_IF TK_ELSE TK_THEN TK_END_LOOP TK_WHILE TK_DO TK_FOR TK_ENTRADA TK_SAIDA
 %token TK_DEC_VAR TK_TIPO_INT TK_TIPO_FLOAT TK_TIPO_BOOL TK_TIPO_CHAR TK_TIPO_STRING
 %token TK_UN_POS TK_CONV_FLOAT TK_CONV_INT TK_LE TK_HE TK_EQ TK_DIFF
 %token TK_CHAR TK_FLOAT TK_BOOL TK_NUM
@@ -112,7 +112,7 @@ COMANDOS	  : COMANDO COMANDOS
 					}
 					;
 
-COMANDO 	  : E ';'
+COMANDO 	: E ';'
 			{
 				$$ = $1;
 			}
@@ -123,6 +123,16 @@ COMANDO 	  : E ';'
 			}
 
 			| DECLARACAO ';'
+			{
+				$$ = $1;
+			}
+
+			| ENTRADA ';'
+			{
+				$$ = $1;
+			}
+
+			| SAIDA ';'
 			{
 				$$ = $1;
 			}
@@ -153,7 +163,12 @@ COMANDO 	  : E ';'
 			}
 			;
 
-ATRIBUICAO 	  : TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' E
+ENTRADA 	: TK_ID = TK_ENTRADA
+			{
+				
+			};
+
+ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' E
 			{
 				erroTipo("char", $5.tipo);
 				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "char");
@@ -291,7 +306,7 @@ ATRIBUICAO 	  : TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' E
 			}
 			;
 
-DECLARACAO	  : TK_DEC_VAR TK_ID TK_TIPO_CHAR
+DECLARACAO	: TK_DEC_VAR TK_ID TK_TIPO_CHAR
 			{
 				string nomeAuxID = addVarToTabSym($2.label, "none", "char");
 				addVarToTempVector("\tchar " + nomeAuxID +  ";\n");

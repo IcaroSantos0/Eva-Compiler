@@ -1,6 +1,7 @@
 int main()
 {
-	var i int = 0;
+	var i int;
+	i = entrada();
 	for i; i < 3; i++; {
 		//var u char;
 	}
