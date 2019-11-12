@@ -43,9 +43,17 @@ STRING \'({LETRA}|{NUM})*\'
 
 "do"        {return TK_DO;}
 
+"for"		{return TK_FOR;}
+
 "(f)"		{return TK_CONV_FLOAT;}
 
 "(i)"		{return TK_CONV_INT;}
+
+"entrada"	{return TK_ENTRADA;}
+
+"saida"		{return TK_SAIDA;}
+
+"++"        {return TK_UN_POS;}
 
 "bool"		{yylval.label = "bool"; yylval.traducao = yytext; return TK_TIPO_BOOL;}
 
