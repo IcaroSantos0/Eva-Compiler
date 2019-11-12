@@ -112,7 +112,7 @@ COMANDOS	  : COMANDO COMANDOS
 					}
 					;
 
-COMANDO 	: E ';'
+COMANDO 	  : E ';'
 			{
 				$$ = $1;
 			}
@@ -163,12 +163,23 @@ COMANDO 	: E ';'
 			}
 			;
 
-ENTRADA 	: TK_ID = TK_ENTRADA
+ENTRADA 	: TK_ID '=' TK_ENTRADA
 			{
-				
+				$$.label = genLabel();
+				$$.tipo = $1.tipo;
+				variable Var = searchForVariable($1.label);
+				cout << "$3.label = " << $3.label << endl;
+				$$.traducao = "\tstd::cin" + $$.traducao + $1.traducao + ";\n";
 			};
 
-ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' E
+SAIDA 		: TK_SAIDA '=' TK_ID
+			{
+				$$.label = genLabel();
+				variable Var = searchForVariable($3.label);
+				$$.traducao = "\tstd::cout " + $3.traducao + ";\n";
+			}
+
+ATRIBUICAO 	  : TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' E
 			{
 				erroTipo("char", $5.tipo);
 				string nomeAuxID = addVarToTabSym($2.label, $5.traducao, "char");
@@ -306,7 +317,7 @@ ATRIBUICAO 	: TK_DEC_VAR TK_ID TK_TIPO_CHAR '=' E
 			}
 			;
 
-DECLARACAO	: TK_DEC_VAR TK_ID TK_TIPO_CHAR
+DECLARACAO	  : TK_DEC_VAR TK_ID TK_TIPO_CHAR
 			{
 				string nomeAuxID = addVarToTabSym($2.label, "none", "char");
 				addVarToTempVector("\tchar " + nomeAuxID +  ";\n");
@@ -732,16 +743,6 @@ E 			  : E '+' E
 				cout << "carambolas filho " << $$.label << endl;
 				$$.tipo = auxVar.tipo;
 				$$.traducao;
-			}
-
-			| TK_ENTRADA //comeco de input e output
-			{
-				$$.traducao = 
-			}
-
-			| TK_SAIDA //comeco de input e output
-			{
-				$$.traducao = 
 			}
 			;
 %%

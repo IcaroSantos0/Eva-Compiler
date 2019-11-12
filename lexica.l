@@ -45,13 +45,13 @@ STRING \'({LETRA}|{NUM})*\'
 
 "for"		{return TK_FOR;}
 
-"(f)"		{return TK_CONV_FLOAT;}
-
-"(i)"		{return TK_CONV_INT;}
-
 "entrada"	{return TK_ENTRADA;}
 
 "saida"		{return TK_SAIDA;}
+
+"(f)"		{return TK_CONV_FLOAT;}
+
+"(i)"		{return TK_CONV_INT;}
 
 "++"        {return TK_UN_POS;}
 
