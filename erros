@@ -1,11 +1,15 @@
-int main()
-{
+Não ter condicional no "for", e sim uma expressão; consertado
 
-	var d bool = FALSE;
+Não ter condicional no "while", e sim uma expressão; 
 
-		if 5<2 then
-			var a int = 5 + 3;
-			var d bool = TRUE;
-		end;
+Não ter condicional no "do while", e sim uma expressão;
 
-}
+Aceitar booleano na condição do "while";
+
+Aceitar booleano na condição do "do while";
+
+Adicionar indicador de procura de variável fora do contexto atual:
+out (n) = procura no n-ésimo contexto mais a fora do contexto atual (atual sendo 0)
+next = procura a variável de nome igual no contexto mais próximo do atual;
+
+Consertar sintaxe;

@@ -1,9 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.3.2.  */
+/* A Bison parser, made by GNU Bison 3.0.4.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
-   Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -31,9 +30,6 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Undocumented macros, especially those whose name start with YY_,
-   are private implementation details.  Do not rely on them.  */
-
 #ifndef YY_YY_Y_TAB_H_INCLUDED
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
@@ -50,70 +46,88 @@ extern int yydebug;
   enum yytokentype
   {
     TK_MAIN = 258,
-    TK_ID = 259,
-    TK_IF = 260,
+    TK_IF = 259,
+    TK_TERN = 260,
     TK_ELSE = 261,
     TK_THEN = 262,
     TK_END_LOOP = 263,
     TK_WHILE = 264,
     TK_DO = 265,
     TK_FOR = 266,
-    TK_ENTRADA = 267,
-    TK_SAIDA = 268,
-    TK_DEC_VAR = 269,
-    TK_TIPO_INT = 270,
-    TK_TIPO_FLOAT = 271,
-    TK_TIPO_BOOL = 272,
-    TK_TIPO_CHAR = 273,
-    TK_TIPO_STRING = 274,
-    TK_UN_POS = 275,
-    TK_CONV_FLOAT = 276,
-    TK_CONV_INT = 277,
-    TK_LE = 278,
-    TK_HE = 279,
-    TK_EQ = 280,
-    TK_DIFF = 281,
-    TK_CHAR = 282,
-    TK_FLOAT = 283,
-    TK_BOOL = 284,
-    TK_NUM = 285,
-    TK_STRING = 286,
-    TK_FIM = 287,
-    TK_ERROR = 288
+    TK_BREAK = 267,
+    TK_CONTINUE = 268,
+    TK_ENTRADA = 269,
+    TK_SAIDA = 270,
+    TK_ID = 271,
+    TK_DEC_VAR = 272,
+    TK_GLOBAL = 273,
+    TK_TIPO_INT = 274,
+    TK_TIPO_FLOAT = 275,
+    TK_TIPO_BOOL = 276,
+    TK_TIPO_CHAR = 277,
+    TK_TIPO_STRING = 278,
+    TK_CONV_FLOAT = 279,
+    TK_CONV_INT = 280,
+    TK_LE = 281,
+    TK_HE = 282,
+    TK_EQ = 283,
+    TK_DIFF = 284,
+    TK_UN_SUM = 285,
+    TK_UN_SUB = 286,
+    TK_NUN_SUM = 287,
+    TK_NUN_SUB = 288,
+    TK_NUN_MUL = 289,
+    TK_NUN_DIV = 290,
+    TK_CHAR = 291,
+    TK_FLOAT = 292,
+    TK_BOOL = 293,
+    TK_NUM = 294,
+    TK_STRING = 295,
+    TK_FIM = 296,
+    TK_ERROR = 297
   };
 #endif
 /* Tokens.  */
 #define TK_MAIN 258
-#define TK_ID 259
-#define TK_IF 260
+#define TK_IF 259
+#define TK_TERN 260
 #define TK_ELSE 261
 #define TK_THEN 262
 #define TK_END_LOOP 263
 #define TK_WHILE 264
 #define TK_DO 265
 #define TK_FOR 266
-#define TK_ENTRADA 267
-#define TK_SAIDA 268
-#define TK_DEC_VAR 269
-#define TK_TIPO_INT 270
-#define TK_TIPO_FLOAT 271
-#define TK_TIPO_BOOL 272
-#define TK_TIPO_CHAR 273
-#define TK_TIPO_STRING 274
-#define TK_UN_POS 275
-#define TK_CONV_FLOAT 276
-#define TK_CONV_INT 277
-#define TK_LE 278
-#define TK_HE 279
-#define TK_EQ 280
-#define TK_DIFF 281
-#define TK_CHAR 282
-#define TK_FLOAT 283
-#define TK_BOOL 284
-#define TK_NUM 285
-#define TK_STRING 286
-#define TK_FIM 287
-#define TK_ERROR 288
+#define TK_BREAK 267
+#define TK_CONTINUE 268
+#define TK_ENTRADA 269
+#define TK_SAIDA 270
+#define TK_ID 271
+#define TK_DEC_VAR 272
+#define TK_GLOBAL 273
+#define TK_TIPO_INT 274
+#define TK_TIPO_FLOAT 275
+#define TK_TIPO_BOOL 276
+#define TK_TIPO_CHAR 277
+#define TK_TIPO_STRING 278
+#define TK_CONV_FLOAT 279
+#define TK_CONV_INT 280
+#define TK_LE 281
+#define TK_HE 282
+#define TK_EQ 283
+#define TK_DIFF 284
+#define TK_UN_SUM 285
+#define TK_UN_SUB 286
+#define TK_NUN_SUM 287
+#define TK_NUN_SUB 288
+#define TK_NUN_MUL 289
+#define TK_NUN_DIV 290
+#define TK_CHAR 291
+#define TK_FLOAT 292
+#define TK_BOOL 293
+#define TK_NUM 294
+#define TK_STRING 295
+#define TK_FIM 296
+#define TK_ERROR 297
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

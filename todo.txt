@@ -1,16 +1,14 @@
 -Feitos
-
+	*contexto
+	*cin
+	*cout
 	*if
 	*while
 	*do while
+	*break
+	*continue
 
 -A fazer
 
 	*string
-	*contexto
-	*escopo global
-	*cin
-	*cout
 	*switch
-	*break
-	*continue 

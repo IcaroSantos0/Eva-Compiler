@@ -1,6 +1,8 @@
 int main()
 {
-	var i int;
-	i = entrada;
-	saida = i;
+
+  var i int = 5;
+  ternario 1 < 2 ? i = 6 : i = 4;
+
+  //if i > 3 then i++; end;
 }

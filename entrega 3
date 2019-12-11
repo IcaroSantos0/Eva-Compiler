@@ -1,0 +1,23 @@
+feito:
+Matrizes
+Operadores Unários
+Operadores Compostos
+Inicialização de Matrizes
+
+falta fazer:
+Funções
+Inicialização de Variáveis
+
+Detecção de Erros
+Extras
+
+
+string nome0 = "Auxiliar" + to_string(valorAuxiliar++);
+string nome1 = "Auxiliar" + to_string(valorAuxiliar++);
+string nomeAux = addVarToTabSym(nome0, "0", "int");
+string acrescimo = addVarToTabSym(nome1, "1", "int");
+addVarToTempVector("\tint " + nomeAux + ";\n");
+addVarToTempVector("\tint " + acrescimo + ";\n");
+Variable Var1 = searchForVariable(nome0); //usar "var" como nome de variável é uma decisão horrível
+Variable Var2 = searchForVariable(nome1); //seja quem for lendo isso, não faça o que eu fiz
+string trad = "\t" + Var1.nome + " = 0;\n" + "\t" + Var2.nome + " = 1;\n";

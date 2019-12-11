@@ -19,6 +19,8 @@ STRING \'({LETRA}|{NUM})*\'
 
 "//".*      {}
 
+"/*"([^*]|\*+[^*/])*\*+"/"  {}
+
 {DELIM} 	{}
 
 "main"		{return TK_MAIN;}
@@ -30,6 +32,8 @@ STRING \'({LETRA}|{NUM})*\'
 "float"     {return TK_TIPO_FLOAT;}
 
 "var"       {return TK_DEC_VAR;}
+
+"global"    {return TK_GLOBAL;}
 
 "if"        {return TK_IF;}
 
@@ -45,15 +49,31 @@ STRING \'({LETRA}|{NUM})*\'
 
 "for"		{return TK_FOR;}
 
+"ternario"	{return TK_TERN;}
+
 "entrada"	{return TK_ENTRADA;}
 
 "saida"		{return TK_SAIDA;}
 
 "(f)"		{return TK_CONV_FLOAT;}
 
+"break" {return TK_BREAK;}
+
+"continue" {return TK_CONTINUE;}
+
 "(i)"		{return TK_CONV_INT;}
 
-"++"        {return TK_UN_POS;}
+"++"    {return TK_UN_SUM;}
+
+"--"    {return TK_UN_SUB;}
+
+"+="    {return TK_NUN_SUM;}
+
+"-="    {return TK_NUN_SUB;}
+
+"*="    {return TK_NUN_MUL;}
+
+"/="    {return TK_NUN_DIV;}
 
 "bool"		{yylval.label = "bool"; yylval.traducao = yytext; return TK_TIPO_BOOL;}
 
