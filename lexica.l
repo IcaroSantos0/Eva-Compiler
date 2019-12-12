@@ -35,6 +35,8 @@ STRING \'({LETRA}|{NUM})*\'
 
 "global"    {return TK_GLOBAL;}
 
+"ternario"  {return TK_TERN;}
+
 "if"        {return TK_IF;}
 
 "then"      {return TK_THEN;}
@@ -48,8 +50,6 @@ STRING \'({LETRA}|{NUM})*\'
 "do"        {return TK_DO;}
 
 "for"		{return TK_FOR;}
-
-"ternario"	{return TK_TERN;}
 
 "entrada"	{return TK_ENTRADA;}
 
@@ -79,7 +79,7 @@ STRING \'({LETRA}|{NUM})*\'
 
 "string"	{return TK_TIPO_STRING;}
 
-[(){}[\];,=<>!|&]	{ return *yytext; }
+[(){}[\]?:;,=<>!|&]	{ return *yytext; }
 
 "<="        {return TK_LE;}
 

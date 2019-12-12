@@ -447,16 +447,16 @@ static const flex_int16_t yy_accept[143] =
        43,   43,   43,    3,   36,   42,    0,    0,    0,    0,
        28,   24,   26,   25,   27,    0,    1,   29,    0,   38,
        33,   35,   34,   43,   43,   43,   43,   43,   43,   43,
-       43,   15,   43,   43,   43,   43,   43,   10,   43,   43,
+       43,   16,   43,   43,   43,   43,   43,   11,   43,   43,
        43,   43,   43,   43,   43,   43,   40,    0,    0,   20,
        23,    0,    0,    1,   41,   43,   43,   43,   43,   43,
-       43,   43,   13,   43,   43,   16,   43,    5,   43,   43,
+       43,   43,   14,   43,   43,   17,   43,    5,   43,   43,
 
        43,   43,   43,    8,   43,    2,   43,   39,   30,   43,
-        6,   43,   12,   43,   43,   43,    4,   43,   43,   43,
-       11,   43,   21,   43,   43,    7,   43,   19,   43,   43,
-       14,   43,   43,    9,   31,   43,   43,   18,   43,   22,
-       17,    0
+        6,   43,   13,   43,   43,   43,    4,   43,   43,   43,
+       12,   43,   21,   43,   43,    7,   43,   19,   43,   43,
+       15,   43,   43,    9,   31,   43,   43,   18,   43,   22,
+       10,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -466,8 +466,8 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    2,    4,    1,    1,    1,    1,    5,    6,    7,
         8,    9,   10,    5,   11,   12,   13,   14,   14,   14,
-       14,   14,   14,   14,   14,   14,   14,    1,    5,   15,
-       16,   17,    1,    1,   18,   19,   19,   19,   20,   21,
+       14,   14,   14,   14,   14,   14,   14,    5,    5,   15,
+       16,   17,    5,    1,   18,   19,   19,   19,   20,   21,
        19,   19,   19,   19,   19,   22,   19,   19,   19,   19,
        19,   23,   24,   25,   26,   19,   19,   19,   19,   19,
         5,    1,    5,    1,   19,    1,   27,   28,   29,   30,
@@ -1058,42 +1058,42 @@ YY_RULE_SETUP
 case 10:
 YY_RULE_SETUP
 #line 38 "lexica.l"
-{return TK_IF;}
+{return TK_TERN;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 40 "lexica.l"
-{return TK_THEN;}
+{return TK_IF;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 42 "lexica.l"
-{return TK_ELSE;}
+{return TK_THEN;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 44 "lexica.l"
-{return TK_END_LOOP;}
+{return TK_ELSE;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 46 "lexica.l"
-{return TK_WHILE;}
+{return TK_END_LOOP;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 48 "lexica.l"
-{return TK_DO;}
+{return TK_WHILE;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 50 "lexica.l"
-{return TK_FOR;}
+{return TK_DO;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 52 "lexica.l"
-{return TK_TERN;}
+{return TK_FOR;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
