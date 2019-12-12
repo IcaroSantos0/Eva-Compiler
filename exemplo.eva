@@ -1,11 +1,4 @@
 int main()
 {
-  //var global a *int;
-  var i int = 2;
-  //var global c int = 3;
-  //global i = global c;
-  var x int = 1;
-  //if i == 0 then i = 1; end;
-  //else then i = 2; end;
-  ternario i < 2 ? i = 3;: saida = i;;
+  
 }
